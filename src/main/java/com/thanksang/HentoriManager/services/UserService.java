@@ -3,7 +3,7 @@ package com.thanksang.HentoriManager.services;
 import com.google.gson.Gson;
 import com.thanksang.HentoriManager.config.Constance;
 import com.thanksang.HentoriManager.config.JwtHelper;
-import com.thanksang.HentoriManager.config.RoleEnum;
+import com.thanksang.HentoriManager.config.RoleTypeEnum;
 import com.thanksang.HentoriManager.entity.UserEntity;
 import com.thanksang.HentoriManager.error.LoginErrors;
 import com.thanksang.HentoriManager.error.RegisterErrors;
@@ -48,7 +48,7 @@ public class UserService implements UserServiceImp {
 
         if (adminRequest.getUsername().matches(Constance.regexUsername)
                 && adminRequest.getPassword().matches(Constance.regexPassword)){
-            Optional<RoleEnum> roleEnum = Arrays.stream(RoleEnum.values())
+            Optional<RoleTypeEnum> roleEnum = Arrays.stream(RoleTypeEnum.values())
                     .filter(role-> role.getCode().equals(adminRequest.getRoleCode()))
                     .findFirst();
             if (!roleEnum.isPresent()){

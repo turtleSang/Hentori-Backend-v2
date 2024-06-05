@@ -1,12 +1,12 @@
 package com.thanksang.HentoriManager.config;
 
-public enum RoleEnum {
+public enum RoleTypeEnum {
     MANAGER("M"),
     STAFF("S");
 
     String code;
 
-    RoleEnum(String code) {
+    RoleTypeEnum(String code) {
         this.code = code;
     }
 

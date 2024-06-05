@@ -10,19 +10,13 @@ import org.hibernate.type.Type;
 
 import java.io.Serializable;
 import java.util.Properties;
-import java.util.stream.Stream;
 
 public class CustomGenerator implements IdentifierGenerator, Configurable {
     private String nameID;
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object obj) {
-        String query = String.format("select %s from %s",
-                session.getEntityPersister(obj.getClass().getName(), obj).getIdentifierPropertyName(),
-                obj.getClass().getSimpleName());
-        Stream<String> ids = session.getSession().createQuery(query, String.class).stream();
-        int max = ids.map(o -> o.replace(nameID, "")).mapToInt(Integer::parseInt).max().orElse(0);
-        max +=1;
+        int max = QueryGenerator.Query(session, obj, nameID);
         return transferClientID(max);
     }
 

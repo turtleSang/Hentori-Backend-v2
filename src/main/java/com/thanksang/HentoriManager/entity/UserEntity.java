@@ -1,7 +1,6 @@
 package com.thanksang.HentoriManager.entity;
 
-import com.thanksang.HentoriManager.config.Constance;
-import com.thanksang.HentoriManager.config.RoleEnum;
+import com.thanksang.HentoriManager.config.RoleTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,5 +21,5 @@ public class UserEntity {
     private String password;
 
     @Column(length = 1)
-    private RoleEnum roleEnum;
+    private RoleTypeEnum roleEnum;
 }
