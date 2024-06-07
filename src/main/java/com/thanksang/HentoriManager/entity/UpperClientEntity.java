@@ -74,7 +74,6 @@ public class UpperClientEntity {
     @Column(length = 10)
     private String haChomBung;
 
-
     @OneToOne
     @MapsId
     @JoinColumn(name = "client_id")

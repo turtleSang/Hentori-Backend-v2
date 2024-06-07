@@ -3,6 +3,8 @@ package com.thanksang.HentoriManager.entity;
 import com.thanksang.HentoriManager.entity.generator.CustomGenerator;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 

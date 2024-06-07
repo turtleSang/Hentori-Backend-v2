@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@Table(name = "account")
 public class AccountEntity {
     @Id
     @Column(unique = true)

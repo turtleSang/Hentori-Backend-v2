@@ -21,7 +21,7 @@ public class OrderIDGenerator implements IdentifierGenerator, Configurable {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object o) {
-        int max = QueryGenerator.Query(session,o, nameID);
+        int max = QueryGenerator.Query(session,o, nameID) + 1;
         return nameID + max;
     }
 

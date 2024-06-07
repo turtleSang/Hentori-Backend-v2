@@ -30,7 +30,7 @@ public class SecurityConfigs {
                         .requestMatchers("api/admin/login").permitAll()
                         .requestMatchers("api/admin/register").permitAll()
                         .requestMatchers("api/admin/confirm").permitAll()
-                        .anyRequest().hasAnyAuthority("MANAGER"))
+                        .anyRequest().authenticated())
         .addFilterBefore(filerSession,  AuthorizationFilter.class);
         return httpSecurity.build();
     }

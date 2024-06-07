@@ -16,8 +16,9 @@ public class CustomGenerator implements IdentifierGenerator, Configurable {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object obj) {
-        int max = QueryGenerator.Query(session, obj, nameID);
-        return transferClientID(max);
+        int max = QueryGenerator.Query(session, obj, nameID) + 1;
+        String id = transferClientID(max);
+        return id;
     }
 
     @Override

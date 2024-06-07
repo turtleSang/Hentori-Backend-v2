@@ -3,12 +3,17 @@ package com.thanksang.HentoriManager.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
+
 @Data
 @Entity
+@Table(name = "receivable")
 public class ReceivableEntity {
+
     @Id
     @Column(name = "order_id")
-    private int id;
+    private String id;
 
     @Column
     private int amount;
@@ -27,6 +32,7 @@ public class ReceivableEntity {
     @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
 
-
+    @OneToMany(mappedBy = "receivableEntity")
+    private Set<RevenueEntity> revenueEntity;
 
 }

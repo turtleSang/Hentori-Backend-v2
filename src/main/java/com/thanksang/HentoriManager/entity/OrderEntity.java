@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Table(name = "orders")
 public class OrderEntity {
     @Id
-    @Column
     @GeneratedValue(generator = "order_generator")
     @GenericGenerator(
             name = "order_generator",
@@ -33,7 +32,6 @@ public class OrderEntity {
     private OrderStatusEnum orderStatusEnum;
 
     @OneToOne(mappedBy = "orderEntity", cascade = CascadeType.ALL)
-    private OrderEntity orderEntity;
-
-
+    @PrimaryKeyJoinColumn
+    private ReceivableEntity receivableEntity;
 }
