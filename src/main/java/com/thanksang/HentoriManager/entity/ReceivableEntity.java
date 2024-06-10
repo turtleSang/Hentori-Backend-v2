@@ -2,6 +2,8 @@ package com.thanksang.HentoriManager.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 
@@ -32,7 +34,12 @@ public class ReceivableEntity {
     @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
 
-    @OneToMany(mappedBy = "receivableEntity")
+    @OneToMany(mappedBy = "receivableEntity", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<RevenueEntity> revenueEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity clientEntity;
 
 }

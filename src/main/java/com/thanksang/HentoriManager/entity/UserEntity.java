@@ -4,6 +4,7 @@ import com.thanksang.HentoriManager.config.RoleTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -22,4 +23,7 @@ public class UserEntity {
 
     @Column(length = 1)
     private RoleTypeEnum roleEnum;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<OrderEntity> orderEntityList;
 }

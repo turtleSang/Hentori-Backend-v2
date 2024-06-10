@@ -8,6 +8,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "clients")
@@ -35,5 +37,8 @@ public class ClientEntity {
     @OneToOne(mappedBy = "clientEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private BelowClientEntity belowEntity;
+
+    @OneToMany(mappedBy = "clientEntity")
+    private List<OrderEntity> orderEntityList;
 
 }

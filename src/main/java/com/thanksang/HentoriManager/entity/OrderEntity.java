@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -34,4 +35,18 @@ public class OrderEntity {
     @OneToOne(mappedBy = "orderEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private ReceivableEntity receivableEntity;
+
+    @OneToMany(mappedBy = "orderEntity")
+    private List<ItemEntity> itemEntities;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private ClientEntity clientEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
+
+
+
 }
