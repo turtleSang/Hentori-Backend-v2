@@ -15,6 +15,7 @@ import com.thanksang.HentoriManager.repository.UpperClientRepository;
 import com.thanksang.HentoriManager.services.Imp.ClientServiceImp;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -68,8 +69,9 @@ public class ClientService implements ClientServiceImp {
 
     @Override
     public List<ClientBaseDto> findAllByName(String name) {
-        Pageable pageable = PageRequest.of(1, Constance.pageSizeClientSearch, Sort.by("name"));
-        List<ClientEntity> clientEntities = clientRepository.findAllByName(name, pageable);
+        Pageable pageable = PageRequest.of(0, 3);
+        String query = "%" + name + "%";
+        Page<ClientEntity> clientEntities = clientRepository.searchByName(query, pageable);
         List<ClientBaseDto> clientBaseDtoList = new ArrayList<>();
         for (ClientEntity clientEntity: clientEntities
              ) {
@@ -93,10 +95,14 @@ public class ClientService implements ClientServiceImp {
     public void updateUpper(UpperClientRequest upperClientRequest, String id) {
         Optional<ClientEntity> clientEntity = clientRepository.findById(id);
         if (clientEntity.isPresent()){
+            UpperClientEntity upperClientEntityNew = modelMapper.map(upperClientRequest, UpperClientEntity.class);
+            if (clientEntity.get().getUpperEntity() != null){
+                upperClientEntityNew.setId(clientEntity.get().getUpperEntity().getId());
+            }else {
+                upperClientEntityNew.setClientEntity(clientEntity.get());
+            }
             try {
-                UpperClientEntity upperClientEntity = modelMapper.map(upperClientRequest, UpperClientEntity.class);
-                upperClientEntity.setClientEntity(clientEntity.get());
-                upperClientRepository.save(upperClientEntity);
+                upperClientRepository.save(upperClientEntityNew);
             }catch (Exception e){
                 throw new ClientErrors(e.getMessage(), e.getCause());
             }
@@ -111,6 +117,11 @@ public class ClientService implements ClientServiceImp {
         if (clientEntity.isPresent()){
             try {
                 BelowClientEntity belowClientEntity = modelMapper.map(belowClientRequest, BelowClientEntity.class);
+                if (clientEntity.get().getBelowEntity() != null){
+                    belowClientEntity.setId(clientEntity.get().getId());
+                }else {
+                    belowClientEntity.setClientEntity(clientEntity.get());
+                }
                 belowClientEntity.setClientEntity(clientEntity.get());
                 belowClientRepository.save(belowClientEntity);
             }catch (Exception e){

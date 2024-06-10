@@ -2,16 +2,13 @@ package com.thanksang.HentoriManager.controllers;
 
 import com.thanksang.HentoriManager.dto.ClientBaseDto;
 import com.thanksang.HentoriManager.error.ClientErrors;
-import com.thanksang.HentoriManager.payload.AdminRequest;
 import com.thanksang.HentoriManager.payload.BelowClientRequest;
 import com.thanksang.HentoriManager.payload.ClientRequest;
 import com.thanksang.HentoriManager.payload.UpperClientRequest;
 import com.thanksang.HentoriManager.services.Imp.ClientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

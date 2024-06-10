@@ -34,6 +34,6 @@ public class ClientEntity {
 
     @OneToOne(mappedBy = "clientEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private BelowClientEntity clientEntity;
+    private BelowClientEntity belowEntity;
 
 }
