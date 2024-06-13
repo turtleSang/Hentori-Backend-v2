@@ -45,7 +45,6 @@ public class UserService implements UserServiceImp {
         if (userEntity.isPresent()) {
             throw new RegisterErrors("Username has existed");
         }
-
         if (adminRequest.getUsername().matches(Constance.regexUsername)
                 && adminRequest.getPassword().matches(Constance.regexPassword)){
             Optional<RoleTypeEnum> roleEnum = Arrays.stream(RoleTypeEnum.values())
@@ -64,6 +63,7 @@ public class UserService implements UserServiceImp {
                 String token = jwtHelper.createJwt(json);
                 emailServiceImp.sendSimpleEmail(token, adminRequest.getUsername());
             } catch (Exception e){
+                System.out.println(e.getMessage());
                 throw new RegisterErrors(e.getMessage(), e.getCause());
             }
         }else {

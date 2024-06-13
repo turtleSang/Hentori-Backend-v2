@@ -60,7 +60,7 @@ public class UserController {
        try {
            UserEntity userEntity = userServiceImp.login(adminRequest);
            GrantedAuthority authority = new SimpleGrantedAuthority(userEntity.getRoleEnum().name());
-           Authentication authentication = new UsernamePasswordAuthenticationToken(userEntity.getId(),userEntity.getPassword(), Arrays.asList(authority));
+           Authentication authentication = new UsernamePasswordAuthenticationToken(userEntity.getId(),"", Arrays.asList(authority));
            String header = request.getHeader("User-Agent");
            HttpSession session = request.getSession(true);
            session.setMaxInactiveInterval(43200);

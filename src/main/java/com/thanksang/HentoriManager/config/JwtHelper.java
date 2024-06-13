@@ -40,6 +40,5 @@ public class JwtHelper {
         } catch (JwtException e){
             throw new JwtErrors(e.getMessage(), e.getCause());
         }
-
     }
 }

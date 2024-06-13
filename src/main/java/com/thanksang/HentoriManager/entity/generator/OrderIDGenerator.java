@@ -25,5 +25,4 @@ public class OrderIDGenerator implements IdentifierGenerator, Configurable {
         return nameID + max;
     }
 
-
 }

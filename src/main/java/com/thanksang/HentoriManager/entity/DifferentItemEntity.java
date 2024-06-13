@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "different_item")
-public class DifferentItem extends ItemEntity{
+public class DifferentItemEntity extends ItemEntity{
     @Column
     private String name;
 }

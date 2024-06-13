@@ -1,10 +1,8 @@
 package com.thanksang.HentoriManager.entity;
 
-import com.thanksang.HentoriManager.entity.generator.CustomGenerator;
+import com.thanksang.HentoriManager.entity.generator.CustomerGenerator;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -20,7 +18,7 @@ public class ClientEntity {
     @GenericGenerator(
             name = "client_sequence",
             parameters = @Parameter(name = "nameID", value = "client"),
-            type = CustomGenerator.class
+            type = CustomerGenerator.class
     )
     private String id;
 

@@ -27,6 +27,9 @@ public class OrderEntity {
     private LocalDate appointment;
 
     @Column
+    private LocalDate createAt;
+
+    @Column
     private int total;
 
     @Column
@@ -46,7 +49,4 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-
-
-
 }

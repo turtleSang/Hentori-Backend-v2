@@ -11,7 +11,7 @@ import org.hibernate.type.Type;
 import java.io.Serializable;
 import java.util.Properties;
 
-public class CustomGenerator implements IdentifierGenerator, Configurable {
+public class CustomerGenerator implements IdentifierGenerator, Configurable {
     private String nameID;
 
     @Override
@@ -31,12 +31,11 @@ public class CustomGenerator implements IdentifierGenerator, Configurable {
     private String transferClientID(int number){
         int length = 1;
         int numCopy = number;
-        while (numCopy > 10){
+        while (numCopy >= 10){
             length++;
             numCopy/=10;
         }
         StringBuilder id = new StringBuilder(nameID);
-        id.append('-');
         for (int i = 0; i < Constance.lengthOfClientId - length; i++) {
             id.append(0);
         }
