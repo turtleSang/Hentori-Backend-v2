@@ -1,6 +1,6 @@
-package com.thanksang.HentoriManager.config;
+package com.thanksang.HentoriManager.config.EnumType;
 
-public enum OrderStatusEnum {
+public enum OrderStatus {
     CREATION("create"),
     FIRST_APPOINTMENT("first"),
     SECOND_APPOINTMENT("second"),
@@ -8,7 +8,7 @@ public enum OrderStatusEnum {
 
     String code;
 
-    OrderStatusEnum(String code) {
+    OrderStatus(String code) {
         this.code = code;
     }
 

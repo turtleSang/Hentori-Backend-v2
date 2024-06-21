@@ -1,13 +1,14 @@
-package com.thanksang.HentoriManager.payload;
+package com.thanksang.HentoriManager.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class SuitRequest extends ItemRequest{
+@Getter
+@Setter
+public class SuitDto extends ItemDto{
     private String kieuAo;
     private String formAo;
     private String kieuVeAo;
-    private String kieuXe;
     private String lotAo;
     private String kieuNut;
     private String kieuTui;

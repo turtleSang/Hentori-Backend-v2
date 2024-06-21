@@ -10,10 +10,10 @@ import lombok.Data;
         property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = ShirtRequest.class, name = "shirt"),
-        @JsonSubTypes.Type(value = TrousersRequest.class, name = "trousers"),
-        @JsonSubTypes.Type(value = SuitRequest.class, name = "suit"),
-        @JsonSubTypes.Type(value = DifferentItemRequest.class, name = "different")
+        @JsonSubTypes.Type(value = ShirtRequest.class, name = "SHIRT"),
+        @JsonSubTypes.Type(value = TrousersRequest.class, name = "TROUSERS"),
+        @JsonSubTypes.Type(value = SuitRequest.class, name = "SUIT"),
+        @JsonSubTypes.Type(value = DifferentItemRequest.class, name = "DIFFERENT")
 })
 @Data
 public abstract class ItemRequest {

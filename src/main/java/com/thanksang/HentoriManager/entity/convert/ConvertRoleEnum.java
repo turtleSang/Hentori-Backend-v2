@@ -1,16 +1,16 @@
 package com.thanksang.HentoriManager.entity.convert;
 
-import com.thanksang.HentoriManager.config.RoleTypeEnum;
+import com.thanksang.HentoriManager.config.EnumType.RoleType;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 import java.util.stream.Stream;
 
 @Converter(autoApply = true)
-public class ConvertRoleEnum implements AttributeConverter<RoleTypeEnum, String> {
+public class ConvertRoleEnum implements AttributeConverter<RoleType, String> {
 
     @Override
-    public String convertToDatabaseColumn(RoleTypeEnum roleEnum) {
+    public String convertToDatabaseColumn(RoleType roleEnum) {
         if (roleEnum == null){
             return null;
         }
@@ -19,12 +19,12 @@ public class ConvertRoleEnum implements AttributeConverter<RoleTypeEnum, String>
     }
 
     @Override
-    public RoleTypeEnum convertToEntityAttribute(String code) {
+    public RoleType convertToEntityAttribute(String code) {
         if (code == null) {
             return null;
         }
 
-        return Stream.of(RoleTypeEnum.values())
+        return Stream.of(RoleType.values())
                 .filter(c -> c.getCode().equals(code))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);

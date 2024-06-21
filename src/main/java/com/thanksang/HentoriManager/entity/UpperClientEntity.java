@@ -1,9 +1,11 @@
 package com.thanksang.HentoriManager.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "upper")
 public class UpperClientEntity {
@@ -78,6 +80,5 @@ public class UpperClientEntity {
     @MapsId
     @JoinColumn(name = "client_id")
     private ClientEntity clientEntity;
-
 
 }

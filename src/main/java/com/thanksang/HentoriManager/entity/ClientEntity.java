@@ -32,11 +32,11 @@ public class ClientEntity {
     @PrimaryKeyJoinColumn
     private UpperClientEntity upperEntity;
 
-    @OneToOne(mappedBy = "clientEntity", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "clientEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private BelowClientEntity belowEntity;
 
-    @OneToMany(mappedBy = "clientEntity")
+    @OneToMany(mappedBy = "clientEntity", fetch = FetchType.LAZY)
     private List<OrderEntity> orderEntityList;
 
 }

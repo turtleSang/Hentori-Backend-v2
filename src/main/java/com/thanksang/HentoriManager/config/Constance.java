@@ -8,6 +8,7 @@ public class Constance {
     public static final int lengthOfClientId = 5;
     public static final String regexPhoneNumber = "^0[9|8|3][0-9]{8}$";
     public static final int pageSizeClientSearch = 5;
+    public static final int PageSize = 9;
 
     public static void checkNullField(Object o) throws IllegalAccessException {
         Field[] fields = o.getClass().getDeclaredFields();

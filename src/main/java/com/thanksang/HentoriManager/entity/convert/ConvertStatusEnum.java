@@ -1,24 +1,24 @@
 package com.thanksang.HentoriManager.entity.convert;
 
-import com.thanksang.HentoriManager.config.OrderStatusEnum;
+import com.thanksang.HentoriManager.config.EnumType.OrderStatus;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 import java.util.stream.Stream;
 
 @Converter(autoApply = true)
-public class ConvertStatusEnum implements AttributeConverter<OrderStatusEnum, String> {
+public class ConvertStatusEnum implements AttributeConverter<OrderStatus, String> {
     @Override
-    public String convertToDatabaseColumn(OrderStatusEnum orderStatusEnum) {
+    public String convertToDatabaseColumn(OrderStatus orderStatusEnum) {
         return orderStatusEnum.getCode();
     }
 
     @Override
-    public OrderStatusEnum convertToEntityAttribute(String s) {
+    public OrderStatus convertToEntityAttribute(String s) {
         if (s == null) {
             return null;
         }
-        return Stream.of(OrderStatusEnum.values())
+        return Stream.of(OrderStatus.values())
                 .filter(status -> status.getCode().equals(s))
                 .findFirst().orElseThrow(IllegalArgumentException::new);
     }

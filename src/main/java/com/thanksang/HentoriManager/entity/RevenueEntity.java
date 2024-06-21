@@ -2,8 +2,11 @@ package com.thanksang.HentoriManager.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "revenue")
 public class RevenueEntity {
@@ -14,11 +17,11 @@ public class RevenueEntity {
     @Column
     private int amount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
     private AccountEntity accountEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receivable_id")
     private ReceivableEntity receivableEntity;
 

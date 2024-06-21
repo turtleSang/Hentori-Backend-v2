@@ -2,22 +2,26 @@ package com.thanksang.HentoriManager.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity(name = "items")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class ItemEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "item_generator", sequenceName = "item_id")
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private int price;
 
-    @Column
+    @Column(nullable = false)
     private int amount;
 
-    @Column
+    @Column(nullable = false)
     private int total;
 
     @Column(columnDefinition = "TEXT")

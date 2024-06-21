@@ -1,16 +1,17 @@
 package com.thanksang.HentoriManager.entity;
 
-import com.thanksang.HentoriManager.config.OrderStatusEnum;
+import com.thanksang.HentoriManager.config.EnumType.OrderStatus;
 import com.thanksang.HentoriManager.entity.generator.OrderIDGenerator;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
 public class OrderEntity {
@@ -33,7 +34,7 @@ public class OrderEntity {
     private int total;
 
     @Column
-    private OrderStatusEnum orderStatusEnum;
+    private OrderStatus orderStatusEnum;
 
     @OneToOne(mappedBy = "orderEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

@@ -14,8 +14,6 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
     Optional<ClientEntity> findByPhoneNumber(String phoneNumber);
 
-
-
     @Query(
             value = "select * from hentori.clients where hentori.clients.name like ?1 ",
             nativeQuery = true

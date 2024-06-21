@@ -3,8 +3,11 @@ package com.thanksang.HentoriManager.entity;
 import com.thanksang.HentoriManager.entity.AccountEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "expenditure")
 public class ExpenditureEntity {
