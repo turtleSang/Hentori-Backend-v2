@@ -8,6 +8,7 @@ import com.thanksang.HentoriManager.entity.*;
 import com.thanksang.HentoriManager.error.OrderErrors;
 import com.thanksang.HentoriManager.payload.ItemRequest;
 import com.thanksang.HentoriManager.payload.OrderRequest;
+import com.thanksang.HentoriManager.payload.UpdateOrderRequest;
 import com.thanksang.HentoriManager.repository.*;
 import com.thanksang.HentoriManager.services.Imp.OrderServiceImp;
 import jakarta.transaction.Transactional;
@@ -200,6 +201,28 @@ public class OrderService implements OrderServiceImp {
         return orderDetailDto;
     }
 
+    @Override
+    public void updateOrder(String id, UpdateOrderRequest updateOrderRequest) {
+        if (updateOrderRequest.getAppointment() == null){
+            throw new OrderErrors("Appointment not be null");
+        }
+        Optional<OrderEntity> orderEntityOptional = orderRepository.findById(id);
+        if (!orderEntityOptional.isPresent()){
+            throw new OrderErrors("Order not found");
+        }
+        try {
+            orderEntityOptional.get().setAppointment(updateOrderRequest.getAppointment());
+            OrderStatus orderStatus = Stream.of(OrderStatus.values())
+                    .filter(orderStatus1 -> orderStatus1.getCode().equals(updateOrderRequest.getStatus()))
+                    .findFirst().orElseThrow(() -> new OrderErrors("not found status"));
+            orderEntityOptional.get().setOrderStatusEnum(orderStatus);
+            orderRepository.save(orderEntityOptional.get());
+        }catch (Exception e){
+            throw new OrderErrors(e.getMessage());
+        }
+    }
+
+
     @Transactional
     @Override
     public void updateOrderItem(ItemRequest itemRequest, int id) {
@@ -239,21 +262,43 @@ public class OrderService implements OrderServiceImp {
             orderEntity.setTotal(newTotalOrder);
 //            Update Receivable
             int newRemaining = newTotalOrder - receivableEntity.getPayment();
-            receivableEntity.setAmount(newTotalOrder);
             receivableEntity.setRemaining(newRemaining);
 //             save change
             itemRepository.delete(itemEntityOptional.get());
             orderRepository.save(orderEntity);
             receivableRepository.save(receivableEntity);
             itemRepository.save(itemEntity);
-
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new OrderErrors(e.getMessage());
         }
-
     }
 
+    @Transactional
+    @Override
+    public void deleteItem(int id) {
+        Optional<ItemEntity> itemEntity = itemRepository.findById(id);
+        if (!itemEntity.isPresent()){
+            throw new OrderErrors("Item not found");
+        }
+        OrderEntity orderEntity = itemEntity.get().getOrderEntity();
+        ReceivableEntity receivableEntity = orderEntity.getReceivableEntity();
+        int totalItem = itemEntity.get().getTotal();
+        int totalOrder = orderEntity.getTotal() - totalItem;
+        int remaining = receivableEntity.getRemaining() - totalItem;
+        if (remaining <= 0 || totalOrder <= 0){
+            throw new OrderErrors("Item in order can't be null");
+        }
+        try {
+            receivableEntity.setRemaining(remaining);
+            orderEntity.setTotal(totalOrder);
+            receivableRepository.save(receivableEntity);
+            orderRepository.save(orderEntity);
+            itemRepository.delete(itemEntity.get());
+        }catch (Exception e){
+            throw new OrderErrors(e.getMessage());
+        }
+    }
 
     private int totalItem(List<ItemRequest> itemRequestList) {
         int total = 0;
@@ -302,7 +347,6 @@ public class OrderService implements OrderServiceImp {
         ReceivableEntity receivableEntity = new ReceivableEntity();
         receivableEntity.setClientEntity(orderEntity.getClientEntity());
         receivableEntity.setStatus(false);
-        receivableEntity.setAmount(orderEntity.getTotal());
         receivableEntity.setRemaining(orderEntity.getTotal());
         receivableEntity.setPayment(0);
         receivableEntity.setOrderEntity(orderEntity);

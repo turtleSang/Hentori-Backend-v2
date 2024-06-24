@@ -19,9 +19,6 @@ public class ReceivableEntity {
     private String id;
 
     @Column
-    private int amount;
-
-    @Column
     private int payment;
 
     @Column

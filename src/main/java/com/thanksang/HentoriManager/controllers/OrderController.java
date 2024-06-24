@@ -5,6 +5,7 @@ import com.thanksang.HentoriManager.dto.OrderDto;
 import com.thanksang.HentoriManager.error.OrderErrors;
 import com.thanksang.HentoriManager.payload.ItemRequest;
 import com.thanksang.HentoriManager.payload.OrderRequest;
+import com.thanksang.HentoriManager.payload.UpdateOrderRequest;
 import com.thanksang.HentoriManager.services.Imp.OrderServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -117,8 +118,47 @@ public class OrderController {
 
     @PutMapping("/item/{id}")
     public ResponseEntity<?> updateItem(@PathVariable int id, @RequestBody ItemRequest itemRequest){
-        orderServiceImp.updateOrderItem(itemRequest, id);
-        return new ResponseEntity<>("hello", HttpStatus.OK);
+        HttpStatus httpStatus;
+        String mess;
+        try {
+            orderServiceImp.updateOrderItem(itemRequest, id);
+            mess = "Items is updated";
+            httpStatus = HttpStatus.OK;
+        }catch (Exception e){
+            httpStatus = HttpStatus.BAD_REQUEST;
+            mess = e.getMessage();
+        }
+        return new ResponseEntity<>(mess, httpStatus);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateOrder(@PathVariable String id, @RequestBody UpdateOrderRequest updateOrderRequest){
+        HttpStatus httpStatus;
+        String mess;
+        try {
+            orderServiceImp.updateOrder(id, updateOrderRequest);
+            mess = "Order is updated";
+            httpStatus = HttpStatus.OK;
+        }catch (Exception e){
+            httpStatus = HttpStatus.BAD_REQUEST;
+            mess = e.getMessage();
+        }
+        return new ResponseEntity<>(mess, httpStatus);
+    }
+
+    @DeleteMapping("/item/{id}")
+    public ResponseEntity<?> deleteItem(@PathVariable int id){
+        HttpStatus httpStatus;
+        String mess;
+        try {
+            orderServiceImp.deleteItem(id);
+            mess = "Items is deleted";
+            httpStatus = HttpStatus.OK;
+        }catch (Exception e){
+            httpStatus = HttpStatus.BAD_REQUEST;
+            mess = e.getMessage();
+        }
+        return new ResponseEntity<>(mess, httpStatus);
     }
 
     @PostMapping
